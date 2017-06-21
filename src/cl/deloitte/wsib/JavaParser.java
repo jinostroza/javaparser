@@ -14,13 +14,12 @@ public class JavaParser {
     final static String queuepathKofaxSYNC = "ESB.SERVICES.KOFAX.SYNC.ERROR";
     final static String queuepathKofaxTCM = "ESB.SERVICES.KOFAX.TO.TCM.ERROR";
     final static String queuepathTCMClaimRequest = "ESB.TCM.DOC.CLAIM.REQUEST.ERROR";
-    final static String pathKofaxSYNC = "C://Users/JINOSTROZAU/Desktop/Queues/"+queuepathKofaxSYNC + ".txt";
-    final static String pathKofaxTCM = "C://Users/JINOSTROZAU/Desktop/Queues/"+queuepathKofaxTCM+".txt";
-    final static String pathTCMClaimRequest = "C://Users/JINOSTROZAU/Desktop/Queues/"+queuepathTCMClaimRequest+".txt";
+    final static String pathKofaxSYNC = "C://JIU/WSIB/Queues/"+queuepathKofaxSYNC + ".txt";
+    final static String pathKofaxTCM = "C://JIU/WSIB/Queues/"+queuepathKofaxTCM +".txt";
+    final static String pathTCMClaimRequest = "C://JIU/WSIB/Queues/"+queuepathTCMClaimRequest +".txt";
     final static String tags1[] = {"<Name>","</Name><Values>"};
     final static String tags2[] = {"<name>","</name><value>"};
     final static String tags3[] = {"<UserException>","</UserException>"};
-
 
     String path = "";
     String DocUnitID = "";
