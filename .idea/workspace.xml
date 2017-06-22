@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a11ffc2b-6f72-4380-81a9-11ac3d1218ec" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JavaParser/cl/deloitte/wsib/SSHTest.class" afterPath="$PROJECT_DIR$/out/production/JavaParser/cl/deloitte/wsib/SSHTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cl/deloitte/wsib/SSHTest.java" afterPath="$PROJECT_DIR$/src/cl/deloitte/wsib/SSHTest.java" />
     </list>
     <ignored path="JavaParser.iws" />
@@ -30,8 +28,8 @@
       <file leaf-file-name="SSHTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/SSHTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="106" column="57" selection-start-line="106" selection-start-column="57" selection-end-line="106" selection-end-column="57" />
+            <state relative-caret-position="-804">
+              <caret line="30" column="50" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1002,8 +1000,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/SSHTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="106" column="57" selection-start-line="106" selection-start-column="57" selection-end-line="106" selection-end-column="57" />
+        <state relative-caret-position="-804">
+          <caret line="30" column="50" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

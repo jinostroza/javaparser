@@ -19,7 +19,8 @@ public class SSHTest {
     private InputStream input = null;
     private OutputStream output = null;
     private FileWriter fileWriter = null;
-    private String path = "C://JIU/data.txt";
+    private String inputPath = "C://JIU/input.txt";
+    private String outputPath = "C://JIU/output.txt";
 
 
     public boolean openConnection(String host, int port, String user, String password, int timeout){
@@ -86,30 +87,43 @@ public class SSHTest {
             e.printStackTrace();
         }
 
-        //System.out.println("Data: "+data);
-
-        /*try {
-            fileWriter = new FileWriter(path);
+        try {
+            fileWriter = new FileWriter(inputPath);
             fileWriter.write(data);
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
-        BufferedReader bufferedReader = new BufferedReader(path);
 
-        while ((data = bufferedReader.readLine()) != null) {
-            if (data.contains(st)) {
-                data = data.substring(data.indexOf(st) + st.length(), data.length());
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
 
-                System.out.println("Imprimitendo: " + data);
+        try {
+            FileWriter fileWriter2 = new FileWriter(outputPath);
 
-                dataExt = dataExt.replaceAll(": ", "\t");
-                //dataExt = dataExt.replaceAll(", ", "\t");
-                //dataExt.concat("\n");
-                //dataFinal+=dataExt;
+            fileReader = new FileReader(inputPath);
+            bufferedReader = new BufferedReader(fileReader);
+
+            while ((data = bufferedReader.readLine()) != null) {
+                if (data.contains(st)) {
+                    data = data.substring(data.indexOf(st) + st.length(), data.length());
+
+                    data = data.replaceAll(": ", ";");
+                    data = data.replaceAll(", ", ";");
+                    data = data.concat("\n");
+
+                    System.out.println("Imprimitendo: " + data);
+
+                    fileWriter2.write(data);
+                }
             }
-        }*/
+            fileWriter2.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
         return data;
     }
 
@@ -138,46 +152,6 @@ public class SSHTest {
             }
         }
     }
-
-    /*public String parseData(){
-
-        String st = "same claim number ";
-        String dataExt = "";
-
-        String data2 = "";
-        FileReader fileReader = null;
-        String dataFinal = "";
-
-        try {
-            fileReader = new FileReader(path);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            while ((data2 = bufferedReader.readLine()) != null) {
-
-                if(data2.contains(st)) {
-                    dataExt = data2.substring(data2.indexOf(st) + st.length(), data2.length());
-
-                    dataExt = dataExt.replaceAll(": ", "\t");
-                    dataExt = dataExt.replaceAll(", ", "\t");
-                    dataExt.concat("\n");
-                    dataFinal+=dataExt;
-                }
-            }
-
-            FileWriter fw = new FileWriter("C://JIU/results.txt");
-            fw.write(dataFinal);
-            fw.close();
-
-            System.out.println(dataFinal);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return dataExt;
-    }*/
 
     public static void main(String[] args) throws InterruptedException {
         SSHTest test = new SSHTest();
