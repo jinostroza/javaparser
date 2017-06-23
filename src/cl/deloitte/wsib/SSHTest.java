@@ -76,6 +76,7 @@ public class SSHTest {
     public String recData(){
         String data = "";
         String st = "same claim number ";
+        ArrayList<String> lista = new ArrayList<>();
 
         try{
             if(this.output != null){
@@ -119,11 +120,46 @@ public class SSHTest {
                     data = data.replaceAll(", ", ";");
                     data = data.concat("\n");
 
+                    lista.add(data);
+
+                   // data = borraRepetidos(data);
+
                     System.out.println("Imprimitendo: " + data);
 
-                    fileWriter2.write(data);
+                    //fileWriter2.write(data);
                 }
             }
+
+            int cont =0;
+
+            for(String el: lista){
+
+                System.out.println(el);
+                cont++;
+            }
+            System.out.println("total "+cont);
+
+            Object[] str = lista.toArray();
+            for (Object s : str) {
+                if (lista.indexOf(s) != lista.lastIndexOf(s)) {
+                    lista.remove(lista.lastIndexOf(s));
+                }
+            }
+
+            cont = 0;
+
+
+            for(String el: lista){
+
+                System.out.println(el);
+                cont++;
+                fileWriter2.write(el);
+            }
+
+            System.out.println("total "+cont);
+
+
+
             fileWriter2.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,14 +195,14 @@ public class SSHTest {
         }
     }
 
-    public String borraRepetidos(){
+    public String borraRepetidos(String data){
 
         //algoritmo: ordenarlos primero y luego borrar los repetidos
 
         BufferedReader br = null;
 
         ArrayList<String> lista = new ArrayList<>();
-        String data = null;
+
 
         try {
             FileReader fr = new FileReader(outputPath);
@@ -221,8 +257,8 @@ public class SSHTest {
         String dateYesterday = "2017-06-20";
 
 
-        test.borraRepetidos();
-        /*if(test.openConnection("plnxin01.wsib.on.ca",22, "uex422","May2017!", 120000)){
+        //test.borraRepetidos();
+        if(test.openConnection("plnxin01.wsib.on.ca",22, "uex422","May2017!", 120000)){
             System.out.println("Connected to server");
             test.sendCommand("cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer \n");
             //test.sendCommand("grep \"The TcmDocuments requested do not all belong to the same claim number\" *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
@@ -233,6 +269,6 @@ public class SSHTest {
             test.close();
         }else{
             System.out.println("Cannot connect to server \r\n");
-        }*/
+        }
     }
 }
