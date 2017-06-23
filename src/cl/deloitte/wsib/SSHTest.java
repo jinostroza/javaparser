@@ -7,6 +7,9 @@ import com.jcraft.jsch.Session;
 import com.sun.org.apache.xml.internal.utils.ThreadControllerWrapper;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Created by jinostrozau on 2017-06-20.
@@ -19,8 +22,11 @@ public class SSHTest {
     private InputStream input = null;
     private OutputStream output = null;
     private FileWriter fileWriter = null;
-    private String inputPath = "C://JIU/input.txt";
-    private String outputPath = "C://JIU/output.txt";
+//    private String inputPath = "C://JIU/input.txt";
+//    private String outputPath = "C://JIU/output.txt";
+
+    private String inputPath = "/Users/jiu/input.txt";
+    private String outputPath = "/Users/jiu/output.txt";
 
 
     public boolean openConnection(String host, int port, String user, String password, int timeout){
@@ -153,11 +159,70 @@ public class SSHTest {
         }
     }
 
+    public String borraRepetidos(){
+
+        //algoritmo: ordenarlos primero y luego borrar los repetidos
+
+        BufferedReader br = null;
+
+        ArrayList<String> lista = new ArrayList<>();
+        String data = null;
+
+        try {
+            FileReader fr = new FileReader(outputPath);
+            br = new BufferedReader(fr);
+
+            while ((data = br.readLine()) != null) {
+                lista.add(data);
+            }
+
+            int cont = 0 ;
+
+            for(String el: lista){
+
+                System.out.println(el);
+                cont++;
+            }
+            System.out.println("total "+cont);
+
+            Object[] st = lista.toArray();
+            for (Object s : st) {
+                if (lista.indexOf(s) != lista.lastIndexOf(s)) {
+                    lista.remove(lista.lastIndexOf(s));
+                }
+            }
+
+            cont = 0;
+
+
+            for(String el: lista){
+
+                System.out.println(el);
+                cont++;
+            }
+
+            System.out.println("total "+cont);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        return data;
+    }
+
     public static void main(String[] args) throws InterruptedException {
         SSHTest test = new SSHTest();
         String dateYesterday = "2017-06-20";
 
-        if(test.openConnection("plnxin01.wsib.on.ca",22, "uex422","May2017!", 120000)){
+
+        test.borraRepetidos();
+        /*if(test.openConnection("plnxin01.wsib.on.ca",22, "uex422","May2017!", 120000)){
             System.out.println("Connected to server");
             test.sendCommand("cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer \n");
             //test.sendCommand("grep \"The TcmDocuments requested do not all belong to the same claim number\" *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
@@ -168,6 +233,6 @@ public class SSHTest {
             test.close();
         }else{
             System.out.println("Cannot connect to server \r\n");
-        }
+        }*/
     }
 }
