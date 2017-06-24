@@ -35,7 +35,7 @@ public class SSHTest {
         jsch = new JSch();
         java.util.Properties config = new java.util.Properties();
         config.put("StrictHostKeyChecking", "no");
-        this.jsch.setConfig(config);
+        JSch.setConfig(config);
 
         try {
             this.session = jsch.getSession(user, host, port);

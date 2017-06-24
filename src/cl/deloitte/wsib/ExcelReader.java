@@ -11,13 +11,20 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  */
 public class ExcelReader {
 
+    private String path = "/JIU/AcesViewer.xlsx";
+    //private String path = "C://JIU/WSIB/Reportes/AcesViewer Unnumbered DocsAnalysis.xlsx";
+
     public static void main(String[] args){
 
-        String path = "C://JIU/WSIB/Reportes/AcesViewer Unnumbered DocsAnalysis.xlsx";
+        new ExcelReader().leeExcel();
+
+    }
+
+    public void leeExcel(){
 
         try{
             Workbook wb = WorkbookFactory.create(new File(path));
-            System.out.println(wb.getSheetAt(0).getRow(2).getCell(1));
+            System.out.println(wb.getSheetAt(0).getRow(0).getCell(0));
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }catch(IOException e){
