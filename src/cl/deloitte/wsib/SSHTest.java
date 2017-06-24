@@ -118,7 +118,7 @@ public class SSHTest {
 
                     data = data.replaceAll(": ", ";");
                     data = data.replaceAll(", ", ";");
-                    data = data.concat("\n");
+                    data = data.concat(";\n");
 
                     lista.add(data);
 
@@ -198,6 +198,7 @@ public class SSHTest {
     public String borraRepetidos(String data){
 
         //algoritmo: ordenarlos primero y luego borrar los repetidos
+        //agrupar por claim number, si la claim number se r3pite.. se agregan los docs no repetidos
 
         BufferedReader br = null;
 
