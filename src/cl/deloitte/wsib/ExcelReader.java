@@ -14,103 +14,83 @@ import jxl.write.WriteException;
  */
 public class ExcelReader {
 
-    private String path = "data.xls";
-    private String path2 = "output.txt";
-    private String inputPath = "/Users/jiu/input.txt";
-    private String outputPath = "/Users/jiu/output.txt";
+    private String path = "AcesViewer.xls";
     //private String path = "C://JIU/WSIB/Reportes/AcesViewer Unnumbered DocsAnalysis.xlsx";
+    private String inputPath = "input.txt";
+    private String outputPath = "output.txt";
 
     public static void main(String[] args){
 
         System.out.println(System.getProperty("os.name")+System.getProperty("os.version"));
         new ExcelReader().init();
-
     }
 
     public void init(){
 
-
         File file=new File(path);
 
-        if(!file.exists())
-        {
-            try {
-                createExcel();
-                writeExcel();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (WriteException e) {
-                e.printStackTrace();
-            } catch (BiffException e) {
-                e.printStackTrace();
-            }
+        if(!file.exists()){
+            createExcel();
+            writeExcel();
         }else {
-            try {
-                writeExcel();
-            } catch (WriteException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (BiffException e) {
-                e.printStackTrace();
-            }
+            writeExcel();
         }
     }
 
 
-    public void writeExcel() throws WriteException, IOException, BiffException {
+    public void writeExcel() {
 
         String data = "";
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        Workbook wb = null;
+        WritableWorkbook workbook = null;
+        WritableSheet sheet = null;
 
+        try {
+            fileReader = new FileReader(outputPath);
+            bufferedReader = new BufferedReader(fileReader);
+            wb = jxl.Workbook.getWorkbook(new File(path));
+            workbook = jxl.Workbook.createWorkbook(new File(path), wb);
+            sheet = workbook.getSheet(0);
 
+            while ((data = bufferedReader.readLine()) != null) {
 
-        FileReader fr = new FileReader(outputPath);
-        BufferedReader br = new BufferedReader(fr);
-        //int lastRow = copySheet.getRows();
+                String[] datos = data.split(";");
+                Label cell = null;
 
+                int lastRow = sheet.getRows();
 
-        jxl.Workbook wb = jxl.Workbook.getWorkbook(new File(path));
-        WritableWorkbook workbook = jxl.Workbook.createWorkbook(new File(path), wb);
-        WritableSheet sheet = workbook.getSheet(0);
-        while ((data = br.readLine()) != null) {
-
-
-
-            String[] datos = data.split(";");
-            Label cell = null;
-
-            int lastRow = sheet.getRows();
-
-            for(int i=0;i<datos.length;i++){
-                //System.out.println("datos["+i+"]: "+datos[i]);
-                cell =  new Label(i,lastRow,datos[i]);
-                System.out.println("i: "+i);
-                System.out.println("lastRow: "+lastRow);
-                System.out.println(datos[i]);
-                sheet.addCell(cell);
-
-                //aCopySheet.addCell(anotherWritableCel2);
-
-
-
+                for (int i = 0; i < datos.length; i++) {
+                    cell = new Label(i, lastRow, datos[i]);
+                    System.out.println("i: " + i);
+                    System.out.println("lastRow: " + lastRow);
+                    System.out.println(datos[i]);
+                    sheet.addCell(cell);
+                }
             }
+            workbook.write();
+            workbook.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch(WriteException e){
+            e.printStackTrace();
+        }catch(BiffException e){
+            e.printStackTrace();
         }
-        workbook.write();
-        workbook.close();
-
-
-
-
-
     }
 
-    public void createExcel() throws IOException, WriteException {
+    public void createExcel(){
 
-        WritableWorkbook writableWorkbook = Workbook.createWorkbook(new File(path));
-        writableWorkbook.createSheet("firstexcel.xls",0);
-
-        writableWorkbook.write();
-        writableWorkbook.close();
+        try {
+            WritableWorkbook writableWorkbook = Workbook.createWorkbook(new File(path));
+            writableWorkbook.createSheet("AcesViewer.xls", 0);
+            writableWorkbook.write();
+            writableWorkbook.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch(WriteException e){
+            e.printStackTrace();
+        }
     }
-
 }

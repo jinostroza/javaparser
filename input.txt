@@ -1,0 +1,31 @@
+Last login: Sat Jun 24 12:57:51 2017 from 192.168.30.94
+[uex422@plnxin01 ~]$ cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer 
+[uex422@plnxin01 CCTOImageViewer]$ grep 'The TcmDocuments requested do not all b elong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)' |sed  's/&quot//g' 
+[uex422@plnxin01 CCTOImageViewer]$ grep 'The TcmDocuments requested do not all b elong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*.2017 -06-20|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot//g' 
+Property: TcmDocumentIds, Attempted Value: [;261606390;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 261606390
+Property: TcmDocumentIds, Attempted Value: [;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391
+Property: TcmDocumentIds, Attempted Value: [;261670279;,;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391
+Property: TcmDocumentIds, Attempted Value: [;261606390;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 261606390
+Property: TcmDocumentIds, Attempted Value: [;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391
+Property: TcmDocumentIds, Attempted Value: [;242055732;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 242055732
+Property: TcmDocumentIds, Attempted Value: [;261606390;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 261606390
+Property: TcmDocumentIds, Attempted Value: [;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391
+Property: TcmDocumentIds, Attempted Value: [;258012165;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 258012165
+Property: TcmDocumentIds, Attempted Value: [;259905732;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 259905732
+Property: TcmDocumentIds, Attempted Value: [;258012165;,;259013880;,;259905732;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 258012165, 259905732
+Property: TcmDocumentIds, Attempted Value: [;258945101;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30467087: 258945101
+Property: TcmDocumentIds, Attempted Value: [;258945101;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30467087: 258945101
+Property: TcmDocumentIds, Attempted Value: [;258945101;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30467087: 258945101
+Property: TcmDocumentIds, Attempted Value: [;262749564;,;261729294;,;261623876;,;260502883;,;260504179;,;260509009;,;260508204;,;252910528;,;254161741;,;249138675;,;249137362;,;238866803;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30314475: 261623876, 252910528, 238866803
+Property: TcmDocumentIds, Attempted Value: [;263891174;,;263295113;,;262749564;,;261976211;,;261729294;,;261623876;,;261314641;,;261323982;,;261318658;,;261117111;,;260502883;,;260504179;,;260509009;,;260508204;,;260508601;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30314475: 261623876
+Property: TcmDocumentIds, Attempted Value: [;249061845;,;250488359;,;242019192;,;240163518;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30314475: 240163518
+Property: TcmDocumentIds, Attempted Value: [;240163518;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30314475: 240163518
+Property: TcmDocumentIds, Attempted Value: [;240163518;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30314475: 240163518
+Property: TcmDocumentIds, Attempted Value: [;258012165;,;259013880;,;259905732;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 258012165, 259905732
+Property: TcmDocumentIds, Attempted Value: [;261706974;,;261670279;,;261606390;,;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391, 261606390
+Property: TcmDocumentIds, Attempted Value: [;261706974;,;261670279;,;261606390;,;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 261606390, 260479391
+Property: TcmDocumentIds, Attempted Value: [;261706974;,;261670279;,;261606390;,;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 261606390, 260479391
+Property: TcmDocumentIds, Attempted Value: [;261606390;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 261606390
+Property: TcmDocumentIds, Attempted Value: [;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391
+Property: TcmDocumentIds, Attempted Value: [;260479391;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 21134879: 260479391
+[uex422@plnxin01 CCTOImageViewer]$ 
