@@ -15,13 +15,12 @@ import jxl.write.WriteException;
 public class ExcelReader {
     //private String excelPath = "C://JIU/WSIB/Reportes/AcesViewer Unnumbered DocsAnalysis.xlsx";
     private String excelPath = "AcesViewer.xls";
-    private String inputPath = "input.txt";
     private String outputPath = "output.txt";
     private String data = "";
     private FileReader fileReader = null;
     private BufferedReader bufferedReader = null;
-    private Workbook wb = null;
-    private WritableWorkbook workbook = null;
+    private Workbook workbook = null;
+    private WritableWorkbook writableWorkbook = null;
     private WritableSheet sheet = null;
     private Label cell = null;
 
@@ -60,9 +59,9 @@ public class ExcelReader {
         try {
             fileReader = new FileReader(outputPath);
             bufferedReader = new BufferedReader(fileReader);
-            wb = jxl.Workbook.getWorkbook(new File(excelPath));
-            workbook = jxl.Workbook.createWorkbook(new File(excelPath), wb);
-            sheet = workbook.getSheet(0);
+            workbook = jxl.Workbook.getWorkbook(new File(excelPath));
+            writableWorkbook = jxl.Workbook.createWorkbook(new File(excelPath), workbook);
+            sheet = writableWorkbook.getSheet(0);
 
             while ((data = bufferedReader.readLine()) != null) {
                 String[] datos = data.split(";");
@@ -73,8 +72,8 @@ public class ExcelReader {
                     sheet.addCell(cell);
                 }
             }
-            workbook.write();
-            workbook.close();
+            writableWorkbook.write();
+            writableWorkbook.close();
         }catch(IOException e){
             e.printStackTrace();
         }catch(WriteException e){

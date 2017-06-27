@@ -1,9 +1,5 @@
-Last login: Tue Jun 27 15:07:20 2017 from 10.213.192.211
-[uex422@plnxin01 ~]$ cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer 
-[uex422@plnxin01 CCTOImageViewer]$ grep 'The TcmDocuments requested do not all b elong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)' |sed  's/&quot//g' 
+grep 'The TcmDocuments requested do not all b elong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)' |sed 's/&quot//g' 
 Property: TcmDocumentIds, Attempted Value: [;260066000;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30422285: 260066000
-[uex422@plnxin01 CCTOImageViewer]$ grep 'The TcmDocuments requested do not all b elong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*.2017 -06-26|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot//g' 
-Property: TcmDocumentIds, Attempted Value: [;264311862;,;264311165;,;263947961;,;263954160;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30548697: 263947961
-Property: TcmDocumentIds, Attempted Value: [;264311862;,;264311165;,;263947961;,;263954160;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30548697: 263947961
-Property: TcmDocumentIds, Attempted Value: [;260066000;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30422285: 260066000
+Property: TcmDocumentIds, Attempted Value: [;264577769;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30571743: 264577769
+Property: TcmDocumentIds, Attempted Value: [;264577769;] Message: 4: The TcmDocuments requested do not all belong to the same claim number 30571743: 264577769
 [uex422@plnxin01 CCTOImageViewer]$ 

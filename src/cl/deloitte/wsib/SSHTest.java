@@ -35,22 +35,23 @@ public class SSHTest {
         this.dateToday = DateUtils.dateFormat(new Date());
         this.dateYesterday = DateUtils.dateFormat(DateUtils.getDateYesterday());
 
-        System.out.println("Initializing Connection at " + DateUtils.dateFormat(new Date()));
+        System.out.println("Initializing Connection at " + new Date());
 
         try {
             if (openConnection("plnxin01.wsib.on.ca", 22, "uex422", "May2017!", 120000)) {
                 System.out.println("Connected to server");
                 sendCommand("cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer \n");
 
-                System.out.println("Getting Errors from today "+dateToday);
-                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
+                System.out.println("Getting Errors from "+dateYesterday);
+                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*." + dateYesterday + "|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed 's/&quot\t//g' \n");
                 Thread.sleep(2000);
+                receiveData(dateYesterday);
 
-                System.out.println("Getting Errors from yesterday "+dateYesterday);
-                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*." + dateYesterday + "|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
+                System.out.println("Getting Errors from "+dateToday);
+                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed 's/&quot\t//g' \n");
                 Thread.sleep(2000);
+                receiveData(dateToday);
 
-                receiveData();
                 closeConnection();
             } else {
                 System.out.println("Cannot connect to server \r\n");
@@ -104,7 +105,7 @@ public class SSHTest {
         return result;
     }
 
-    public void receiveData() {
+    public void receiveData(String date) {
         String data = "";
 
         try {
@@ -119,13 +120,13 @@ public class SSHTest {
                     data += new String(btBuffer);
                 }
             }
-            writeFile(data);
+            writeFile(data, date);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void writeFile (String data){
+    public void writeFile (String data, String date){
         String findString = "same claim number ";
         ArrayList<String> lista = null;
 
@@ -133,15 +134,11 @@ public class SSHTest {
             fileWriter = new FileWriter(inputPath);
             fileWriter.write(data);
             fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             fileWriter = new FileWriter(outputPath);
             fileReader = new FileReader(inputPath);
             bufferedReader = new BufferedReader(fileReader);
-            lista  = new ArrayList<>();
+            lista = new ArrayList<>();
+            lista.add("Date: "+date+"\n");
 
             while ((data = bufferedReader.readLine()) != null) {
                 if (data.contains(findString)) {
@@ -153,9 +150,8 @@ public class SSHTest {
                 }
             }
 
-            Object[] str = lista.toArray();
-
             //agrega solo elementos unicos a la lista
+            Object[] str = lista.toArray();
             for (Object s : str) {
                 if (lista.indexOf(s) != lista.lastIndexOf(s)) {
                     lista.remove(lista.lastIndexOf(s));
