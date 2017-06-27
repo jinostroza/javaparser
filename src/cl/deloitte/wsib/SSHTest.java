@@ -6,9 +6,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,47 +20,44 @@ public class SSHTest {
     private InputStream input = null;
     private OutputStream output = null;
     private FileWriter fileWriter = null;
-    //private String inputPath = "C://JIU/input.txt";
-    //private String outputPath = "C://JIU/output.txt";
+    private FileReader fileReader = null;
+    private BufferedReader bufferedReader = null;
     private String inputPath = "input.txt";
     private String outputPath = "output.txt";
+    private String dateYesterday = "";
+    private String dateToday = "";
 
     public static void main(String[] args) throws InterruptedException {
-        SSHTest test = new SSHTest();
-        String dateYesterday = "";
-        String dateToday = "";
+        new SSHTest().init();
+    }
 
-        System.out.println("Today: " + dateFormat(new Date()));
+    public void init(){
+        this.dateToday = DateUtils.dateFormat(new Date());
+        this.dateYesterday = DateUtils.dateFormat(DateUtils.getDateYesterday());
 
-        if (test.openConnection("plnxin01.wsib.on.ca", 22, "uex422", "May2017!", 120000)) {
-            System.out.println("Connected to server");
-            test.sendCommand("cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer \n");
-            //results of today
-            test.sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
-            //results of yesterday
-            Thread.sleep(2000);
-            test.sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*." + dateFormat(getDateYesterday()) + "|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
-            Thread.sleep(2000);
-            test.recData();
-            test.close();
-        } else {
-            System.out.println("Cannot connect to server \r\n");
+        System.out.println("Initializing Connection at " + DateUtils.dateFormat(new Date()));
+
+        try {
+            if (openConnection("plnxin01.wsib.on.ca", 22, "uex422", "May2017!", 120000)) {
+                System.out.println("Connected to server");
+                sendCommand("cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer \n");
+
+                System.out.println("Getting Errors from today "+dateToday);
+                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
+                Thread.sleep(2000);
+
+                System.out.println("Getting Errors from yesterday "+dateYesterday);
+                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*." + dateYesterday + "|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed  's/&quot\t//g' \n");
+                Thread.sleep(2000);
+
+                receiveData();
+                closeConnection();
+            } else {
+                System.out.println("Cannot connect to server \r\n");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-    }
-
-    public static String dateFormat(Date date){
-
-        return new SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
-
-    public static Date getDateYesterday(){
-        Date date = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, -1);
-        date.setTime( c.getTime().getTime() );
-
-        return date;
     }
 
     public boolean openConnection(String host, int port, String user, String password, int timeout) {
@@ -109,10 +104,8 @@ public class SSHTest {
         return result;
     }
 
-    public String recData() {
+    public void receiveData() {
         String data = "";
-        String st = "same claim number ";
-        ArrayList<String> lista = new ArrayList<>();
 
         try {
             if (this.output != null) {
@@ -126,9 +119,15 @@ public class SSHTest {
                     data += new String(btBuffer);
                 }
             }
+            writeFile(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeFile (String data){
+        String findString = "same claim number ";
+        ArrayList<String> lista = null;
 
         try {
             fileWriter = new FileWriter(inputPath);
@@ -138,32 +137,21 @@ public class SSHTest {
             e.printStackTrace();
         }
 
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-
         try {
-            FileWriter fileWriter2 = new FileWriter(outputPath);
-
+            fileWriter = new FileWriter(outputPath);
             fileReader = new FileReader(inputPath);
             bufferedReader = new BufferedReader(fileReader);
+            lista  = new ArrayList<>();
 
             while ((data = bufferedReader.readLine()) != null) {
-                if (data.contains(st)) {
-                    data = data.substring(data.indexOf(st) + st.length(), data.length());
+                if (data.contains(findString)) {
+                    data = data.substring(data.indexOf(findString) + findString.length(), data.length());
                     data = data.replaceAll(": ", ";");
                     data = data.replaceAll(", ", ";");
-                    //data = data.concat(";\n");
+                    data = data.concat(";\n");
                     lista.add(data);
                 }
             }
-
-            int cont = 0;
-
-            for (String el : lista) {
-                System.out.println(el);
-                cont++;
-            }
-            System.out.println("total " + cont);
 
             Object[] str = lista.toArray();
 
@@ -174,25 +162,17 @@ public class SSHTest {
                 }
             }
 
-            cont = 0;
-
             for (String el : lista) {
-                System.out.println(el);
-                cont++;
-                fileWriter2.write(el);
+                fileWriter.write(el);
             }
 
-            System.out.println("total " + cont);
-            fileWriter2.close();
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
-
-        return data;
     }
 
-    public void close() {
+    public void closeConnection() {
         if (this.session != null) {
             this.session.disconnect();
         }
@@ -216,55 +196,5 @@ public class SSHTest {
                 e.printStackTrace();
             }
         }
-    }
-
-    public String borraRepetidos(String data) {
-
-        //algoritmo: ordenarlos primero y luego borrar los repetidos
-        //agrupar por claim number, si la claim number se r3pite.. se agregan los docs no repetidos
-
-        BufferedReader br = null;
-        ArrayList<String> lista = new ArrayList<>();
-
-        try {
-            FileReader fr = new FileReader(outputPath);
-            br = new BufferedReader(fr);
-
-            while ((data = br.readLine()) != null) {
-                lista.add(data);
-            }
-
-            int cont = 0;
-
-            for (String el : lista) {
-
-                System.out.println(el);
-                cont++;
-            }
-            System.out.println("total " + cont);
-
-            Object[] st = lista.toArray();
-            for (Object s : st) {
-                if (lista.indexOf(s) != lista.lastIndexOf(s)) {
-                    lista.remove(lista.lastIndexOf(s));
-                }
-            }
-
-            cont = 0;
-
-            for (String el : lista) {
-                System.out.println(el);
-                cont++;
-            }
-
-            System.out.println("total " + cont);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return data;
     }
 }
