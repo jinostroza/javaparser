@@ -27,7 +27,6 @@ public class SSHTest {
     private String inputPath = "input.txt";
     private String outputPath = "output.txt";
 
-
     public static void main(String[] args) throws InterruptedException {
         SSHTest test = new SSHTest();
         String dateYesterday = "";
@@ -51,8 +50,8 @@ public class SSHTest {
         }
     }
 
-
     public static String dateFormat(Date date){
+
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
@@ -72,6 +71,7 @@ public class SSHTest {
         jsch = new JSch();
         java.util.Properties config = new java.util.Properties();
         config.put("StrictHostKeyChecking", "no");
+        config.put("PreferredAuthentications", "publickey,keyboard-interactive,password");
         JSch.setConfig(config);
 
         try {
@@ -150,11 +150,9 @@ public class SSHTest {
             while ((data = bufferedReader.readLine()) != null) {
                 if (data.contains(st)) {
                     data = data.substring(data.indexOf(st) + st.length(), data.length());
-
                     data = data.replaceAll(": ", ";");
                     data = data.replaceAll(", ", ";");
-                    data = data.concat(";\n");
-
+                    //data = data.concat(";\n");
                     lista.add(data);
                 }
             }
