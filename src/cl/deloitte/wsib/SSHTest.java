@@ -24,35 +24,37 @@ public class SSHTest {
     private BufferedReader bufferedReader = null;
     private String inputPath = "input.txt";
     private String outputPath = "output.txt";
-    private String dateYesterday = "";
-    private String dateToday = "";
+    private static String date = "";
 
     public static void main(String[] args) throws InterruptedException {
+
+        //date = DateUtils.dateFormat(new Date()); //send as parameter from UI
+        date = "2017-06-22";
         new SSHTest().init();
     }
 
     public void init(){
-        this.dateToday = DateUtils.dateFormat(new Date());
-        this.dateYesterday = DateUtils.dateFormat(DateUtils.getDateYesterday());
+        String today = DateUtils.dateFormat(new Date());
+        String pattern = "";
 
-        System.out.println("Initializing Connection at " + new Date());
+        if (!date.equals(today)){
+            pattern = "*."+date;
+        }
+
+        System.out.println("Initializing Connection ...");
 
         try {
             if (openConnection("plnxin01.wsib.on.ca", 22, "uex422", "May2017!", 120000)) {
                 System.out.println("Connected to server");
                 sendCommand("cd /appllog01/GW/Claims_R3_V2/PROD/CCTOImageViewer \n");
 
-                System.out.println("Getting Errors from "+dateYesterday);
-                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log.0*." + dateYesterday + "|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed 's/&quot\t//g' \n");
-                Thread.sleep(2000);
-                receiveData(dateYesterday);
+                System.out.println("Getting Aces Viewer Issues from "+date);
 
-                System.out.println("Getting Errors from "+dateToday);
-                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' *.log|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed 's/&quot\t//g' \n");
+                sendCommand("grep 'The TcmDocuments requested do not all belong to the same claim number' Audit_WSIB_ACES_CC_To_ImageViewer_MF.log"+pattern+"|grep -oP '(?<=<Details>).*?(?=</Details>)'|sed 's/&quot\t//g' \n");
                 Thread.sleep(2000);
-                receiveData(dateToday);
-
+                receiveData();
                 closeConnection();
+                new ExcelReport().init(); //creating excel with results
             } else {
                 System.out.println("Cannot connect to server \r\n");
             }
@@ -105,12 +107,11 @@ public class SSHTest {
         return result;
     }
 
-    public void receiveData(String date) {
+    public void receiveData() {
         String data = "";
 
         try {
             if (this.output != null) {
-
                 int iAvailable = this.input.available();
 
                 while (iAvailable > 0) {
@@ -120,13 +121,13 @@ public class SSHTest {
                     data += new String(btBuffer);
                 }
             }
-            writeFile(data, date);
+            writeFile(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void writeFile (String data, String date){
+    public void writeFile (String data){
         String findString = "same claim number ";
         ArrayList<String> lista = null;
 
@@ -157,10 +158,13 @@ public class SSHTest {
                     lista.remove(lista.lastIndexOf(s));
                 }
             }
+            int cont = 0;
 
             for (String el : lista) {
                 fileWriter.write(el);
+                cont++;
             }
+            System.out.println("Total of Occurrences: "+--cont);
 
             fileWriter.close();
         } catch (IOException e) {
@@ -169,6 +173,9 @@ public class SSHTest {
     }
 
     public void closeConnection() {
+
+        System.out.println("Closing Connection ...");
+
         if (this.session != null) {
             this.session.disconnect();
         }

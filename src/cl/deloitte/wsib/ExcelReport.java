@@ -12,7 +12,7 @@ import jxl.write.WriteException;
 /**
  * Created by jinostrozau on 2017-06-23.
  */
-public class ExcelReader {
+public class ExcelReport {
     //private String excelPath = "C://JIU/WSIB/Reportes/AcesViewer Unnumbered DocsAnalysis.xlsx";
     private String excelPath = "AcesViewer.xls";
     private String outputPath = "output.txt";
@@ -26,22 +26,23 @@ public class ExcelReader {
 
     public static void main(String[] args){
         //System.out.println(System.getProperty("os.name")+System.getProperty("os.version"));
-        new ExcelReader().init();
+        new ExcelReport().init();
     }
 
     public void init(){
-        File file=new File(excelPath);
+        //File file=new File(excelPath);
 
-        if(!file.exists()){
+        //if(!file.exists()){
             createExcel();
             writeExcel();
-        }else {
+        /*}else {
             writeExcel();
-        }
+        }*/
     }
 
     public void createExcel(){
 
+        System.out.println("Creating Excel File ...");
         try {
             WritableWorkbook writableWorkbook = Workbook.createWorkbook(new File(excelPath));
             writableWorkbook.createSheet("AcesViewer.xls", 0);
