@@ -7,12 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a11ffc2b-6f72-4380-81a9-11ac3d1218ec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.form" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/cl/deloitte/wsib/XMLParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cl/deloitte/wsib/Test.form" afterPath="$PROJECT_DIR$/src/cl/deloitte/wsib/Test.form" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cl/deloitte/wsib/Test.java" afterPath="$PROJECT_DIR$/src/cl/deloitte/wsib/Test.java" />
     </list>
     <ignored path="JavaParser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,12 +72,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExcelReport.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ExcelReport.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/ExcelReport.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1003">
               <caret line="66" column="64" selection-start-line="66" selection-start-column="64" selection-end-line="66" selection-end-column="64" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XMLParser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/XMLParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,6 +167,8 @@
         <option value="$PROJECT_DIR$/src/cl/deloitte/wsib/Test.java" />
         <option value="$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.java" />
         <option value="$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.form" />
+        <option value="$PROJECT_DIR$/src/cl/deloitte/wsib/DOM.java" />
+        <option value="$PROJECT_DIR$/src/cl/deloitte/wsib/XMLParser.java" />
       </list>
     </option>
   </component>
@@ -243,6 +253,28 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaparser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javaparser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wsib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Test2" />
+              <option name="myItemType" value="com.intellij.uiDesigner.projectView.FormNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -741,7 +773,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498595136364</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="cambios en la estructura del proyecto, se agregan libs java poi para el correcto funcionamiento">
+      <created>1498847170171</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1498847170171</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -817,13 +856,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/JavaParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_77/src.zip!/java/lang/String.java" />
     <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/JavaParser.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1031,11 +1063,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -1045,6 +1072,14 @@
             <element signature="e#629#630#0" expanded="true" />
             <element signature="e#673#674#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/ExcelReport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1003">
+          <caret line="66" column="64" selection-start-line="66" selection-start-column="64" selection-end-line="66" selection-end-column="64" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1064,11 +1099,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/ExcelReport.java">
+    <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/Test2.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cl/deloitte/wsib/XMLParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="66" column="64" selection-start-line="66" selection-start-column="64" selection-end-line="66" selection-end-column="64" />
-          <folding />
+        <state relative-caret-position="340">
+          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
