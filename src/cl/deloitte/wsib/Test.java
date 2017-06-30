@@ -13,10 +13,10 @@ public class Test extends JFrame{
         setContentPane(panel1);
         setLocationRelativeTo(null);
         panel1.setVisible(true);
-
     }
 
     public static void main(String[] args) {
+
         new Test();
     }
 }
