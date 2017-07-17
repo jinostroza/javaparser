@@ -1,14 +1,11 @@
 package cl.deloitte.wsib;
 
-import org.jdom2.Document;         // |
-import org.jdom2.Element;          // |\ Librerías
-import org.jdom2.JDOMException;    // |/ JDOM
-import org.jdom2.input.SAXBuilder; // |
+
 
 import java.io.File;
 
 public class XMLParser {
-
+/*
     public void cargarXml() {
         //Se crea un SAXBuilder para poder parsear el archivo
         SAXBuilder builder = new SAXBuilder();
@@ -61,5 +58,5 @@ public class XMLParser {
         } catch (JDOMException jdomex) {
             System.out.println(jdomex.getMessage());
         }
-    }
+    }*/
 }

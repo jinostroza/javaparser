@@ -54,7 +54,7 @@ public class SSHTest {
                 Thread.sleep(2000);
                 receiveData();
                 closeConnection();
-                new ExcelReport().init(); //creating excel with results
+               // new ExcelReport().init(); //creating excel with results
             } else {
                 System.out.println("Cannot connect to server \r\n");
             }

@@ -1,7 +1,6 @@
 package cl.deloitte.wsib;
 
 import java.io.*;
-
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
@@ -23,26 +22,16 @@ public class ExcelReport {
     private WritableWorkbook writableWorkbook = null;
     private WritableSheet sheet = null;
     private Label cell = null;
+    private ReportGenerator rg = null;
 
-    public static void main(String[] args){
-        //System.out.println(System.getProperty("os.name")+System.getProperty("os.version"));
-        new ExcelReport().init();
-    }
-
-    public void init(){
-        //File file=new File(excelPath);
-
-        //if(!file.exists()){
-            createExcel();
-            writeExcel();
-        /*}else {
-            writeExcel();
-        }*/
+    public void init(ReportGenerator rg){
+        this.rg = rg;
+        createExcel();
+        writeExcel();
     }
 
     public void createExcel(){
-
-        System.out.println("Creating Excel File ...");
+        rg.writeConsole("Creating Excel File ...");
         try {
             WritableWorkbook writableWorkbook = Workbook.createWorkbook(new File(excelPath));
             writableWorkbook.createSheet("AcesViewer.xls", 0);
